@@ -1,9 +1,0 @@
-weather_code,weather_string
-1.0,Clear
-2.0,Scattered clouds
-3.0,Broken clouds
-4.0,Cloudy
-7.0,Rain
-10.0,Rain with thunderstorm
-26.0,Snowfall
-94.0,Freezing Fog
