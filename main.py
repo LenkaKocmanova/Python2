@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import requests
+import pandas
+import numpy
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+#r = requests.get("https://raw.githubusercontent.com/pesikj/python-032021/master/01_pandas/01/ukol/london_merged.csv?token=ALBCQKQ7TMDMXG4ABDQRB73BJHF72")
+#open("london_merged.csv", 'wb').write(r.content)
 
+#r = requests.get("https://raw.githubusercontent.com/pesikj/python-032021/master/01_pandas/01/ukol/tested.csv?token=ALBCQKUCTSQ2TQLRAIFR6VDBJHF24")
+#open("tested.csv", 'wb').write(r.content)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+df = pandas.read_csv("tested.csv")
+len(df)
+print(df.head())
+for i in range(len(df)):
+    if df["Sex"][i] == "male":
+        print(i)
+        df["male"] = 1
+        df["female"] = 0
+    else:
+        df["male"] = 1
+        df["female"] = 0
+df_aggregated = df.groupby(["Pclass", "Survived"])["male"].sum()
+df_aggregated = pandas.DataFrame(df_aggregated)
+print(df.head())
+#print(df_aggregated.head())
+#df_pivot = pandas.pivot_table(df, values="male", index="Pclass", columns="Survived", aggfunc=numpy.sum, margins=True)
+#print(df_pivot)
