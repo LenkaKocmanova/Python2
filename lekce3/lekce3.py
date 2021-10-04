@@ -22,10 +22,6 @@ print(zvirata.shape)
 pandas.set_option('display.max_columns', None)
 print(zvirata.head())
 
-for ad in zvirata.itertuples():
-    kod_kraje = zvirata.cena
-    nazev_kraje = zvirata.k_prohlidce
-    nase = zvirata[(zvirata["cena"] <= kod_kraje)]["hodnota"].mean()
-#nase = zvirata[(zvirata["cena"]<=2500) & (zvirata["k_prohlidce"] == 1.0)]
-print(nase.shape)
-print(nase.head())
+urazy = pandas.read_csv("dopravni-urazy.csv", sep=";")
+kraje = pandas.read_csv("kraje.csv")
+urazy_prumer = pandas.DataFrame(columns=["nazev_kraje", "hodnota"])
