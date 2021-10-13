@@ -10,7 +10,7 @@ PORT = 5432
 USER = "lenka.kocmanova"
 USERNAME = f"{USER}@czechitaspsql"
 DATABASE = "postgres"
-PASSWORD = "POmLav4!B273EQj7"
+PASSWORD = ""
 
 engine = create_engine(f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}", echo = True)
 
@@ -24,7 +24,7 @@ pandas.set_option('display.max_columns', None)
 #df = pandas.read_sql("dreviny", con=engine)
 
 smrk = pandas.read_sql("SELECT * FROM \"dreviny\" WHERE dd_txt = 'Smrk' OR dd_txt = 'Jedle' OR dd_txt = 'Douglaska';", con=engine)
-#print(smrk)
+print(smrk)
 
 nahodila_tezba = pandas.read_sql("SELECT * FROM \"dreviny\" WHERE druhtez_txt = 'Nahodilá těžba dřeva';", con=engine)
 #print(nahodila_tezba)
