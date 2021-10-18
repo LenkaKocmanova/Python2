@@ -19,9 +19,8 @@ def check_url(radek):
         return radek.title
     if not (radek.image_src.startswith("https://zoopraha.cz/images/")):
         return radek.title
-    delka = len(radek.image_src)
-    koncovka = radek.image_src[delka - 3:delka]
-    if not ((koncovka == "jpg") | (koncovka == "JPG")):
+    koncovka = radek.image_src[-3:]
+    if not (koncovka.lower() == "jpg"):
         return radek.title
 
 for zv in zvirata.itertuples():
