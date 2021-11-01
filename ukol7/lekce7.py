@@ -17,6 +17,31 @@ mod = smf.ols(formula="prodejni_cena_mil ~ obytna_plocha_m2", data=df)
 res = mod.fit()
 #print(res.summary())
 
+df.isna().sum()
+df["plocha_pozemku_pred_domem_m2"] = df["plocha_pozemku_pred_domem_m2"].fillna(0)
+seaborn.heatmap(df.corr(), annot=True, linewidths=.5, fmt=".2f", cmap="Blues", vmax=1)
+plt.show()
+df = df.drop("pocet_aut_v_garazi", axis=1)
+df = df.drop("plocha_pozemku_pred_domem_m2", axis=1)
+df = df.drop("plocha_pozemku_m2", axis=1)
+
+mod = smf.ols(formula="prodejni_cena_mil ~ obytna_plocha_m2 + celkova_kvalita + rok_vystavby + rok_rekonstrukce "
+                      " + plocha_garaze_m2 + pocet_koupelen", data=df)
+res = mod.fit()
+res.summary()
+mod = smf.ols(formula="prodejni_cena_mil ~ obytna_plocha_m2 + celkova_kvalita + rok_vystavby + rok_rekonstrukce "
+                      " + plocha_garaze_m2", data=df)
+res = mod.fit()
+res.summary()
+
+#predikce
+data = pandas.DataFrame({"obytna_plocha_m2": [200],
+                         "celkova_kvalita": [8],
+                         "rok_vystavby": [1980],
+                         "rok_rekonstrukce": [2010],
+                         "plocha_garaze_m2": [60]})
+print(res.predict(data))
+
 from scipy.stats import norm
 seaborn.distplot(df["prodejni_cena_mil"], fit=norm).set_title("Distribution plot")
 (mu, sigma) = stats.norm.fit(df["prodejni_cena_mil"])
