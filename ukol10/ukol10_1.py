@@ -1,14 +1,9 @@
 import pandas
-import numpy as np
-import matplotlib.pyplot as plt
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
-
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import StandardScaler
 
 data = pandas.read_csv("soybean-2-rot.csv")
 
@@ -30,13 +25,17 @@ y_pred = clf.predict(X_test)
 print(f1_score(y_test, y_pred, average="weighted"))
 print(clf.feature_importances_)
 print(oh_encoder.feature_names_in_)
-for name, importance in zip(oh_encoder.feature_names_in_, clf.feature_importances_):
+zipped = zip(oh_encoder.feature_names_in_, clf.feature_importances_)
+zipped = list(zipped)
+res = sorted(zipped, key = lambda x: x[1], reverse=True)
+for name, importance in res:
     print(name, importance)
 
+nejvetsi = res[0][0]
 print(y.unique())
-print(data["temp"].unique())
-#největší vliv má parametr temp.
-X1 = data["temp"]
+print(data[nejvetsi].unique())
+#největší vliv má parametr temp nebo plant-stand.
+X1 = data[nejvetsi]
 
 oh_encoder1 = OneHotEncoder()
 X1 = X1.values.reshape(-1,1)
@@ -54,3 +53,4 @@ y_pred = clf.predict(X_test)
 
 print(f1_score(y_test, y_pred, average="weighted"))
 # Pokud použijeme jen parametr "temp", bude mít model přesnost jen 43%
+# Pokud použijeme jen parametr "plant-stand", bude mít model přesnost 75%
