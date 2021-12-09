@@ -13,9 +13,8 @@ polution["year"] = polution["date"].dt.year
 polution["month"] = polution["date"].dt.month
 polution19 = polution[(polution["year"] == 2019) & (polution["month"] == 1)]["pm25"]
 polution20 = polution[(polution["year"] == 2020) & (polution["month"] == 1)]["pm25"]
-# nulová hypotéza: Znečištění bylo v jednom roce větší a v druhém menší nebo naopak
-# alternativní hypotéza: Znečištění bylo v obou letech stejné
-U, z = mannwhitneyu(polution19, polution20)
-p = 1-z
+# nulová hypotéza: Znečištění bylo v obou letech stejné
+# alternativní hypotéza: Znečištění bylo v prvním roce větší než ve druhém, nebo naopak
+U, p = mannwhitneyu(polution19, polution20)
 print(p)
 # nulovou hypotézu nezamítáme
