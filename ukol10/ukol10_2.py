@@ -17,18 +17,18 @@ pandas.set_option('display.max_columns', None)
 print(data.shape)
 data = data.dropna()
 print(data.shape)
-#1=USA, 2=Evropa, 3=Japonsko
+#Origin: 1=USA, 2=Evropa, 3=Japonsko
 
 df_pivot = pandas.pivot_table(data, index = "year", columns="origin", values="mpg", aggfunc=numpy.mean, margins = True)
 print(df_pivot)
 df_pivot.plot()
 plt.show()
 
-X = data.drop(columns=["origin"])
+X = data.drop(columns=["origin", "name"])
 y = data["origin"]
 
-oh_encoder = OneHotEncoder()
-X = oh_encoder.fit_transform(X)
+#oh_encoder = OneHotEncoder()
+#X = oh_encoder.fit_transform(X)
 
 #print(y)
 X_train, X_test, y_train, y_test = train_test_split(
@@ -49,6 +49,6 @@ print(round(clf.best_score_, 2))
 y_pred = clf.predict(X_test)
 print(f1_score(y_test, y_pred, average='micro'))
 
-# {'max_depth': 20, 'min_samples_leaf': 1}
+# {'max_depth': 4, 'min_samples_leaf': 8}
 # nejlepší skore je 80%
-# f1_score = 77%
+# f1_score = 75%
