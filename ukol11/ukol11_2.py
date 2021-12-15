@@ -23,7 +23,7 @@ tsne = TSNE(
 X = tsne.fit_transform(X)
 print(X.shape)
 plt.scatter(X[:, 0], X[:, 1], s=50)
-model = KMeans(n_clusters=8, random_state=0)
+model = KMeans(n_clusters=10, random_state=0)
 labels = model.fit_predict(X)
 plt.scatter(X[:, 0], X[:, 1], c=labels, s=50, cmap="Set1")
 centers = model.cluster_centers_
